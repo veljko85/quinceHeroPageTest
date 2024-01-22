@@ -109,8 +109,9 @@
         if (sceneToRender && sceneToRender.activeCamera) {
           sceneToRender.render();
         }
-        engine.setHardwareScalingLevel(1 / window.devicePixelRatio);
-        engine.adaptToDeviceRatio = true;
+        //mobile to look nice
+        // engine.setHardwareScalingLevel(1 / window.devicePixelRatio);
+        // engine.adaptToDeviceRatio = true;
       });
     }
 
@@ -251,6 +252,9 @@
         });
 
         animateRotationZ.setKeys(animKeys);
+        const easingFun2 = new BABYLON.CubicEase();
+        easingFun2.setEasingMode(BABYLON.EasingFunction.EASINGMODE_EASEINOUT);
+        animateRotationZ.setEasingFunction(easingFun2);
         mesh.animations.push(animateRotationZ);
         scene.beginAnimation(mesh, 0, 60, true, speed);
       }
@@ -415,10 +419,10 @@
 
       // ENVIROMENT;
       scene.environmentTexture = new BABYLON.CubeTexture(
-        "025.env",
+        "studio.env",
         scene
       );
-      scene.environmentIntensity = 2;
+      scene.environmentIntensity = 1;
 
       //FOG
       scene.fogMode = BABYLON.Scene.FOGMODE_LINEAR;
@@ -473,30 +477,23 @@
             loadingPercentages.innerHTML = `${combLoadedPercent}%`
           }
         ),
-        BABYLON.SceneLoader.ImportMeshAsync("", "yugo.glb", null, scene, (evt) => {
+        BABYLON.SceneLoader.ImportMeshAsync("", "yugo2.glb", null, scene, (evt) => {
           if (evt.lengthComputable) {
-            console.log(evt)
             playerLoadedPercent = (evt.loaded * 100) / evt.total / 2;
             combLoadedPercent = (
               gameEnvLoadedPercent + playerLoadedPercent
             ).toFixed();
           } else {
-            playerLoadedPercent = (evt.loaded * 100) / 1269172 / 2;
+            playerLoadedPercent = (evt.loaded * 100) / 820084 / 2;
             combLoadedPercent = (
               gameEnvLoadedPercent + playerLoadedPercent
             ).toFixed();
           }
           loadingPercentages.innerHTML = `${combLoadedPercent}%`
         }),
-        // BABYLON.SceneLoader.ImportMeshAsync("", "scene10.glb", null, scene, (evt) => {
-        // }),
-        // BABYLON.SceneLoader.ImportMeshAsync(/*"https://raw.githubusercontent.com/veljko85/quinceHeroSection/ghpages/"*/"", "yugo.glb", null, scene, (evt) => {
-        // }),
         BABYLON.SceneLoader.ImportMeshAsync(/*"https://raw.githubusercontent.com/veljko85/quinceHeroSection/ghpages/"*/"", "Welcome3.glb", null, scene, (evt) => {
         }),
-        // BABYLON.SceneLoader.ImportMeshAsync(/*"https://raw.githubusercontent.com/veljko85/quinceHeroSection/ghpages/"*/"", "enterQuincePlanet.glb", null, scene, (evt) => {
-        // }),
-        BABYLON.SceneLoader.ImportMeshAsync(/*"https://raw.githubusercontent.com/veljko85/quinceHeroSection/ghpages/"*/"", "clickHere3.glb", null, scene, (evt) => {
+        BABYLON.SceneLoader.ImportMeshAsync(/*"https://raw.githubusercontent.com/veljko85/quinceHeroSection/ghpages/"*/"", "clickHere.glb", null, scene, (evt) => {
         }),
       ]);
 
